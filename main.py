@@ -58,7 +58,7 @@ def check_for_buttons():
     if display.is_pressed(display.BUTTON_X):
         t=time.localtime()
         date1 = (t[0],t[1],t[2])
-        date2 = (2021, 08, 27)
+        date2 = (2021, 8, 27)
         plusDays = days_between(date1, date2)*-86400
         change = 1
     elif display.is_pressed(display.BUTTON_Y):
@@ -67,7 +67,7 @@ def check_for_buttons():
     elif display.is_pressed(display.BUTTON_A):
         t=time.localtime()
         date1 = (t[0],t[1],t[2])
-        date2 = (1979, 03, 10)
+        date2 = (1979, 3, 10)
         plusDays = days_between(date1, date2)*-86400
         change = 1
     elif display.is_pressed(display.BUTTON_B):
