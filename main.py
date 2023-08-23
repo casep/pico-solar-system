@@ -55,29 +55,42 @@ def check_for_buttons():
     global backlight
     global plusDays
     global change
-    if display.is_pressed(display.BUTTON_X):
-        t=time.localtime()
-        date1 = (t[0],t[1],t[2])
-        date2 = (2021, 8, 27)
-        plusDays = days_between(date1, date2)*-86400
-        change = 1
-    elif display.is_pressed(display.BUTTON_Y):
-        plusDays = 0
-        change = 2
-    elif display.is_pressed(display.BUTTON_A):
-        t=time.localtime()
-        date1 = (t[0],t[1],t[2])
-        date2 = (1979, 3, 10)
-        plusDays = days_between(date1, date2)*-86400
-        change = 1
-    elif display.is_pressed(display.BUTTON_B):
+    if button_x.is_pressed:
         t=time.localtime()
         date1 = (t[0],t[1],t[2])
         date2 = (2019, 12, 6)
         plusDays = days_between(date1, date2)*-86400
         change = 1
-
-
+        backlight += 0.05
+        if backlight > 1:
+            backlight = 1
+        display.set_backlight(backlight)
+    elif button_y.is_pressed:
+        backlight -= 0.05
+        if backlight < 0:
+            backlight = 0
+        display.set_backlight(backlight)
+        plusDays = 0
+        change = 2
+    if button_a.is_pressed and button_b.is_pressed:
+        plusDays = 0
+        change = 2
+        time.sleep(0.2)
+    elif button_a.is_pressed:
+        t=time.localtime()
+        date1 = (t[0],t[1],t[2])
+        date2 = (2021, 08, 27)
+        plusDays = days_between(date1, date2)*-86400
+        change = 1
+        time.sleep(0.05)
+    elif button_b.is_pressed:
+        t=time.localtime()
+        date1 = (t[0],t[1],t[2])
+        date2 = (1979, 03, 10)
+        plusDays = days_between(date1, date2)*-86400
+        change = 1
+        time.sleep(0.05)
+    
 def set_internal_time(utc_time):
     rtc_base_mem = const(0x4005c000)
     atomic_bitmask_set = const(0x2000)
